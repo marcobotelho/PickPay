@@ -46,6 +46,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         }
         String senhaCripto = getSenhaCripto(usuarioRecord.senha());
 
+        usuarioModel.setId(usuarioId);
         usuarioModel.setNome(usuarioRecord.nome());
         usuarioModel.setEmail(usuarioRecord.email());
         usuarioModel.setSenha(senhaCripto);

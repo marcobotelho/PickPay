@@ -28,7 +28,7 @@ public class TransferenciaControllerTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        transferenciaRecord = new TransferenciaRecord(1L, 2L, 50.0);
+        transferenciaRecord = new TransferenciaRecord(null, 1L, 2L, 50.0);
     }
 
     @Test

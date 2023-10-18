@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.marco.pickpay.records.UsuarioRecord;
 import com.marco.pickpay.services.UsuarioService;
@@ -49,14 +48,15 @@ public class UsuarioController {
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 
-    @GetMapping("/email")
-    public ResponseEntity<UsuarioRecord> buscarUsuarioPorEmail(@RequestParam String email) {
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UsuarioRecord> buscarUsuarioPorEmail(@PathVariable String email) {
         UsuarioRecord usuario = usuarioService.buscarUsuarioPorEmail(email);
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 
-    @GetMapping("/cpf-cnpj")
-    public ResponseEntity<UsuarioRecord> buscarUsuarioPorCpfCnpj(@RequestParam String cpfCnpj) {
+    @GetMapping("/cpf-cnpj/{cpf-cnpj}")
+    public ResponseEntity<UsuarioRecord> buscarUsuarioPorCpfCnpj(
+            @PathVariable(name = "cpf-cnpj") String cpfCnpj) {
         UsuarioRecord usuario = usuarioService.buscarUsuarioPorCpfCnpj(cpfCnpj);
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }

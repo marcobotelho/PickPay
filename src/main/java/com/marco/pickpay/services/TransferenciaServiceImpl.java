@@ -45,8 +45,8 @@ public class TransferenciaServiceImpl implements TransferenciaService {
                 .orElseThrow(() -> new NoSuchElementException("Destinatario com id '"
                         + transferenciaRecord.destinatarioId() + "' não encontrado"));
 
-        TransferenciaModel transferenciaModel =
-                TransferenciaMapper.toModel(remetente, destinatario, transferenciaRecord.valor());
+        TransferenciaModel transferenciaModel = TransferenciaMapper.toModel(null, remetente,
+                destinatario, transferenciaRecord.valor());
 
         transferenciaModel = transferenciaRepository.save(transferenciaModel);
 
