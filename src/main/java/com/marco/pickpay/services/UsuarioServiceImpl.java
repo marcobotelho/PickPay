@@ -31,6 +31,9 @@ public class UsuarioServiceImpl implements UsuarioService {
                 usuarioRecord.cpfCnpj(), usuarioRecord.tipoUsuario(), usuarioRecord.saldo());
 
         UsuarioModel usuarioModel = UsuarioMapper.toModel(usuarioRecord);
+        if (usuarioModel == null) {
+            throw new RuntimeException("Usuário não pode ser nulo");
+        }
         usuarioModel = usuarioRepository.save(usuarioModel);
 
         return UsuarioMapper.toRecord(usuarioModel);
@@ -38,6 +41,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioRecord atualizarUsuario(Long usuarioId, UsuarioRecord usuarioRecord) {
+        if (usuarioId == null) {
+            throw new RuntimeException("Id do Usuário não pode ser vazio");
+        }
         UsuarioModel usuarioModel =
                 usuarioRepository.findById(usuarioId).orElseThrow(() -> new NoSuchElementException(
                         "Usuário com id '" + usuarioId + "' não encontrado"));
@@ -61,11 +67,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void deletarUsuario(Long usuarioId) {
+        if (usuarioId == null) {
+            throw new RuntimeException("Id do Usuário não pode ser vazio");
+        }
         usuarioRepository.deleteById(usuarioId);
     }
 
     @Override
     public UsuarioRecord buscarUsuarioPorId(Long usuarioId) {
+        if (usuarioId == null) {
+            throw new RuntimeException("Id do Usuário não pode ser vazio");
+        }
         UsuarioModel usuarioModel =
                 usuarioRepository.findById(usuarioId).orElseThrow(() -> new NoSuchElementException(
                         "Usuário com id '" + usuarioId + "' não encontrado"));
