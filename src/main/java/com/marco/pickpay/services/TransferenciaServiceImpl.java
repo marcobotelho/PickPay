@@ -31,11 +31,7 @@ public class TransferenciaServiceImpl implements TransferenciaService {
 
     @Override
     public TransferenciaRecord transferirValor(TransferenciaRecord transferenciaRecord) {
-        Long remetenteId = transferenciaRecord.remetenteId();
-        if (remetenteId == null) {
-            throw new RuntimeException("Id do Remetente não pode ser vazio");
-        }
-        UsuarioModel remetente = usuarioRepository.findById(remetenteId)
+        UsuarioModel remetente = usuarioRepository.findById(transferenciaRecord.remetenteId())
                 .orElseThrow(() -> new NoSuchElementException("Remetente com id '"
                         + transferenciaRecord.remetenteId() + "' não encontrado"));
         if (remetente.getTipoUsuario().equals(TipoUsuario.LOJISTA)) {
@@ -45,20 +41,13 @@ public class TransferenciaServiceImpl implements TransferenciaService {
             throw new RuntimeException("Remetente com saldo insuficiente");
         }
 
-        Long destinatarioId = transferenciaRecord.destinatarioId();
-        if (destinatarioId == null) {
-            throw new RuntimeException("Id do Destinatário não pode ser vazio");
-        }
-        UsuarioModel destinatario = usuarioRepository.findById(destinatarioId)
+        UsuarioModel destinatario = usuarioRepository.findById(transferenciaRecord.destinatarioId())
                 .orElseThrow(() -> new NoSuchElementException("Destinatario com id '"
                         + transferenciaRecord.destinatarioId() + "' não encontrado"));
 
         TransferenciaModel transferenciaModel = TransferenciaMapper.toModel(null, remetente,
                 destinatario, transferenciaRecord.valor());
 
-        if (transferenciaModel == null) {
-            throw new RuntimeException("Erro ao efetuar transferência");
-        }
         transferenciaModel = transferenciaRepository.save(transferenciaModel);
 
         atualizaSaldos(remetente, destinatario, transferenciaRecord.valor());
