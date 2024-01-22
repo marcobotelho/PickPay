@@ -1,0 +1,3 @@
+INSERT INTO usuario (nome, email, senha, cpf_cnpj, tipo_usuario, saldo) VALUES ('João', 'joao@email.com', '123', '11111111111', 'COMUM', 150);
+INSERT INTO usuario (nome, email, senha, cpf_cnpj, tipo_usuario, saldo) VALUES ('Maria', 'maria@email.com', '123', '2222222222', 'COMUM', 100);
+INSERT INTO usuario (nome, email, senha, cpf_cnpj, tipo_usuario, saldo) VALUES ('Pedro', 'pedro@email.com', '123', '333333333', 'LOJISTA', 80);
