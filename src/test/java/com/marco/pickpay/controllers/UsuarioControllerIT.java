@@ -49,11 +49,13 @@ public class UsuarioControllerIT {
         public void setUp() {
                 MockitoAnnotations.openMocks(this);
 
-                usuarioRecord = new UsuarioRecord("Nome Teste Integracao",
+                usuarioRecord = new UsuarioRecord(null, "Nome Teste Integracao",
                                 "nometesteintegracao@email.com", "senhatesteintegracao",
                                 "111111111", TipoUsuario.COMUM, 50.0);
 
                 usuarioModel = usuarioRepository.save(UsuarioMapper.toModel(usuarioRecord));
+                
+                usuarioRecord = UsuarioMapper.toRecord(usuarioModel);
         }
 
         @AfterEach
@@ -63,7 +65,7 @@ public class UsuarioControllerIT {
 
         @Test
         public void testCreateUsuario() throws Exception {
-                UsuarioRecord usuarioRecordNovo = new UsuarioRecord("nome3", "nome3@example.com",
+                UsuarioRecord usuarioRecordNovo = new UsuarioRecord(null, "nome3", "nome3@example.com",
                                 "senhanome3", "333", TipoUsuario.COMUM, 0.0);
 
                 mockMvc.perform(MockMvcRequestBuilders.post(url)
@@ -109,7 +111,7 @@ public class UsuarioControllerIT {
 
         @Test
         public void testCreateUsuario_QdoSenhaNula_RuntimeException() throws Exception {
-                UsuarioRecord usuarioRecordNovo = new UsuarioRecord("nome3", "nome3@example.com",
+                UsuarioRecord usuarioRecordNovo = new UsuarioRecord(null, "nome3", "nome3@example.com",
                                 null, "333", TipoUsuario.COMUM, 0.0);
 
                 mockMvc.perform(MockMvcRequestBuilders.post(url)
@@ -128,7 +130,7 @@ public class UsuarioControllerIT {
                 url = url.concat("/" + usuarioModel.getId());
 
                 UsuarioRecord usuarioRecordUpdate =
-                                new UsuarioRecord("nome22", "nome22@example.com", "senhanome22",
+                                new UsuarioRecord(1L, "nome22", "nome22@example.com", "senhanome22",
                                                 "2222222", TipoUsuario.COMUM, 0.0);
 
                 mockMvc.perform(MockMvcRequestBuilders.put(url)
@@ -173,7 +175,7 @@ public class UsuarioControllerIT {
         public void testUpdateUsuario_QdoSenhaNula_RuntimeException() throws Exception {
                 url = url.concat("/" + usuarioModel.getId());
 
-                UsuarioRecord usuarioRecordUpdate = new UsuarioRecord("nome22",
+                UsuarioRecord usuarioRecordUpdate = new UsuarioRecord(1L, "nome22",
                                 "nome22@example.com", null, "2222222", TipoUsuario.COMUM, 0.0);
 
                 mockMvc.perform(MockMvcRequestBuilders.put(url)
@@ -192,7 +194,7 @@ public class UsuarioControllerIT {
                 url = url.concat("/" + usuarioId);
 
                 UsuarioRecord usuarioRecordUpdate =
-                                new UsuarioRecord("nome22", "nome22@example.com", "senhanome22",
+                                new UsuarioRecord(1L, "nome22", "nome22@example.com", "senhanome22",
                                                 "2222222", TipoUsuario.COMUM, 0.0);
 
                 mockMvc.perform(MockMvcRequestBuilders.put(url)

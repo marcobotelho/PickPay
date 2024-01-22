@@ -7,12 +7,12 @@ import com.marco.pickpay.records.UsuarioRecord;
 public class UsuarioMapper {
 
     public static UsuarioModel toModel(UsuarioRecord usuarioRecord) {
-        return new UsuarioModel(usuarioRecord.nome(), usuarioRecord.email(), usuarioRecord.senha(),
+        return new UsuarioModel(usuarioRecord.id(), usuarioRecord.nome(), usuarioRecord.email(), usuarioRecord.senha(),
                 usuarioRecord.cpfCnpj(), usuarioRecord.tipoUsuario(), usuarioRecord.saldo());
     }
 
     public static UsuarioRecord toRecord(UsuarioModel usuarioModel) {
-        return new UsuarioRecord(usuarioModel.getNome(), usuarioModel.getEmail(),
+        return new UsuarioRecord(usuarioModel.getId(), usuarioModel.getNome(), usuarioModel.getEmail(),
                 usuarioModel.getSenha(), usuarioModel.getCpfCnpj(), usuarioModel.getTipoUsuario(),
                 usuarioModel.getSaldo());
     }

@@ -46,10 +46,10 @@ public class TransferenciaServiceIT {
         public void setUp() {
                 MockitoAnnotations.openMocks(this);
 
-                remetenteRecord = new UsuarioRecord("Nome Remetente", "remetente@email.com",
+                remetenteRecord = new UsuarioRecord(null, "Nome Remetente", "remetente@email.com",
                                 "senharemetente", "111111111", TipoUsuario.COMUM, 100.0);
 
-                destinatarioRecord = new UsuarioRecord("Nome Destinatario",
+                destinatarioRecord = new UsuarioRecord(null, "Nome Destinatario",
                                 "destinatario@email.com", "senhadestinatario", "222222222",
                                 TipoUsuario.LOJISTA, 0.0);
 

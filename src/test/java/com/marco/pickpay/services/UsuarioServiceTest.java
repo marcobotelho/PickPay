@@ -58,7 +58,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void testCriarUsuarioSucesso() {
-        UsuarioRecord usuarioRecord = new UsuarioRecord("John Doe", "johndoe@example.com",
+        UsuarioRecord usuarioRecord = new UsuarioRecord(null, "John Doe", "johndoe@example.com",
                 "password", "1234567890", TipoUsuario.COMUM, 0.0);
         UsuarioModel usuarioModel = UsuarioMapper.toModel(usuarioRecord);
         Mockito.when(usuarioRepository.save(usuarioModel)).thenReturn(usuarioModel);
@@ -82,7 +82,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void testCriarUsuarioErroValidacao() {
-        UsuarioRecord usuarioRecord = new UsuarioRecord("", "", "", "", null, null);
+        UsuarioRecord usuarioRecord = new UsuarioRecord(null, "", "", "", "", null, null);
         UsuarioModel usuarioModel = UsuarioMapper.toModel(usuarioRecord);
 
         Set<ConstraintViolation<Object>> constraintViolations =
@@ -123,7 +123,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void testCriarUsuarioErroValidacaoEmail() {
-        UsuarioRecord usuarioRecord = new UsuarioRecord("John Doe", "johndoe.example.com",
+        UsuarioRecord usuarioRecord = new UsuarioRecord(null, "John Doe", "johndoe.example.com",
                 "password", "1234567890", TipoUsuario.COMUM, 0.0);
         UsuarioModel usuarioModel = UsuarioMapper.toModel(usuarioRecord);
 
@@ -156,7 +156,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void testCriarUsuarioErroValidacaoSenha() {
-        UsuarioRecord usuarioRecord = new UsuarioRecord("John Doe", "johndoe@example.com", null,
+        UsuarioRecord usuarioRecord = new UsuarioRecord(null, "John Doe", "johndoe@example.com", null,
                 "1234567890", TipoUsuario.COMUM, 0.0);
 
         String mensagemDeErro = "Senha nula não é valida";
@@ -173,7 +173,7 @@ public class UsuarioServiceTest {
     public void testAtualizarUsuario_Success() {
         // Arrange
         Long usuarioId = 1L;
-        UsuarioRecord usuarioRecord = new UsuarioRecord("John Doe", "john.doe@example.com",
+        UsuarioRecord usuarioRecord = new UsuarioRecord(null, "John Doe", "john.doe@example.com",
                 "password", "1234567890", TipoUsuario.COMUM, 100.0);
         UsuarioModel usuarioModel = new UsuarioModel();
         usuarioModel.setNome("Old Name");
@@ -202,7 +202,7 @@ public class UsuarioServiceTest {
     public void testAtualizarUsuario_NullPassword() {
         // Arrange
         Long usuarioId = 1L;
-        UsuarioRecord usuarioRecord = new UsuarioRecord("John Doe", "john.doe@example.com", null,
+        UsuarioRecord usuarioRecord = new UsuarioRecord(null, "John Doe", "john.doe@example.com", null,
                 "1234567890", TipoUsuario.COMUM, 100.0);
         UsuarioModel usuarioModel = new UsuarioModel();
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuarioModel));
@@ -243,7 +243,7 @@ public class UsuarioServiceTest {
     void testBuscarUsuarioPorIdComSucesso() {
         // Test case 1: Find existing user by ID
         final Long usuarioId = 1L;
-        UsuarioRecord expectedUsuarioRecord = new UsuarioRecord("John Doe", "johndoe.example.com",
+        UsuarioRecord expectedUsuarioRecord = new UsuarioRecord(1L, "John Doe", "johndoe.example.com",
                 "password", "1234567890", TipoUsuario.COMUM, 0.0);
         UsuarioModel usuarioModel = UsuarioMapper.toModel(expectedUsuarioRecord);
         usuarioModel.setId(usuarioId);
@@ -269,7 +269,7 @@ public class UsuarioServiceTest {
     @Test
     public void testBuscarUsuarioPorEmailSucesso() {
         String usuarioEmail = "johndoe.example.com";
-        UsuarioRecord usuarioRecord = new UsuarioRecord("John Doe", usuarioEmail, "password",
+        UsuarioRecord usuarioRecord = new UsuarioRecord(null, "John Doe", usuarioEmail, "password",
                 "1234567890", TipoUsuario.COMUM, 0.0);
         UsuarioModel usuarioModel = UsuarioMapper.toModel(usuarioRecord);
         when(usuarioRepository.findByEmail(usuarioEmail)).thenReturn(Optional.of(usuarioModel));
@@ -293,7 +293,7 @@ public class UsuarioServiceTest {
     @Test
     public void testBuscarUsuarioPorCpfCnpjSucesso() {
         String usuarioCpfCnpj = "133232323";
-        UsuarioRecord usuarioRecord = new UsuarioRecord("John Doe", "johndoe.example.com",
+        UsuarioRecord usuarioRecord = new UsuarioRecord(null, "John Doe", "johndoe.example.com",
                 "password", usuarioCpfCnpj, TipoUsuario.COMUM, 0.0);
         UsuarioModel usuarioModel = UsuarioMapper.toModel(usuarioRecord);
         when(usuarioRepository.findByCpfCnpj(usuarioCpfCnpj)).thenReturn(Optional.of(usuarioModel));
@@ -318,9 +318,9 @@ public class UsuarioServiceTest {
     public void testBuscarUsuarios() {
         // Arrange
         List<UsuarioModel> usuarioModels = new ArrayList<>();
-        usuarioModels.add(new UsuarioModel("John", "Doe", "john.doe@example.com", "1554454",
+        usuarioModels.add(new UsuarioModel(4L, "John", "Doe", "john.doe@example.com", "1554454",
                 TipoUsuario.LOJISTA, 150.0));
-        usuarioModels.add(new UsuarioModel("Jane", "Smith", "jane.smith@example.com", "232323",
+        usuarioModels.add(new UsuarioModel(5L, "Jane", "Smith", "jane.smith@example.com", "232323",
                 TipoUsuario.COMUM, 500.0));
 
         when(usuarioRepository.findAll()).thenReturn(usuarioModels);

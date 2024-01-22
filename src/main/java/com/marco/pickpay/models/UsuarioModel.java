@@ -47,7 +47,7 @@ public class UsuarioModel {
     @NotNull(message = "O saldo deve ser informado")
     private Double saldo;
 
-    public UsuarioModel(String nome, String email, String senha, String cpfCnpj,
+    public UsuarioModel(Long id, String nome, String email, String senha, String cpfCnpj,
             TipoUsuario tipoUsuario, Double saldo) {
         this.nome = nome;
         this.email = email;
