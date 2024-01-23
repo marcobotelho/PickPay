@@ -44,7 +44,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (usuarioRecord.senha() == null) {
             throw new RuntimeException("Senha nula não é valida");
         }
-        String senhaCripto = getSenhaCripto(usuarioRecord.senha());
+        String senhaCripto = "";
+        if (usuarioRecord.senha().equals(usuarioModel.getSenha())) {
+			senhaCripto = usuarioModel.getSenha();
+		}else {
+			senhaCripto = getSenhaCripto(usuarioRecord.senha());
+		}
 
         usuarioModel.setId(usuarioId);
         usuarioModel.setNome(usuarioRecord.nome());
